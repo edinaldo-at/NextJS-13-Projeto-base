@@ -1,5 +1,5 @@
 import { Inter } from 'next/font/google';
-import StyledComponentsRegistry from '../lib/registry';
+import StyledComponentsRegistry from '../lib/styled_componentes/registry';
 import Theme from '../styles/Theme';
 import GlobalStyle from "../styles/globals";
 
