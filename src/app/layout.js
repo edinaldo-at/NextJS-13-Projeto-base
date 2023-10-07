@@ -3,6 +3,8 @@ import StyledComponentsRegistry from '../lib/styled_componentes/registry';
 import Theme from '../styles/Theme';
 import GlobalStyle from "../styles/globals";
 
+import NextAuthSessionProvider from "../lib/next_auth/sessionProvider";
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -15,12 +17,14 @@ export default function RootLayout({ children }) {
     <html lang="pt-br">
       <head />
       <body className={inter.className}>
-        <StyledComponentsRegistry>
-          <Theme>
-            <GlobalStyle />
-              <main>{children}</main>
-          </Theme>  
-        </StyledComponentsRegistry>
+        <NextAuthSessionProvider>
+          <StyledComponentsRegistry>
+            <Theme>
+              <GlobalStyle />
+                <main>{children}</main>
+            </Theme>  
+          </StyledComponentsRegistry>
+        </NextAuthSessionProvider>
       </body>
     </html>
   )
