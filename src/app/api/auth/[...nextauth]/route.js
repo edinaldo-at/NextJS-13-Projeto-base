@@ -1,5 +1,7 @@
-import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { Authenticate } from "../../../../services/features/querys/authService";
+
 
 const nextAuthOptions = {
 	providers: [
@@ -11,37 +13,34 @@ const nextAuthOptions = {
 			},
 
 			async authorize(credentials, req) {
-				const response = await fetch('http://localhost:3000/api/auth/sign_in', {
-					method: 'POST',
-					headers: {
-						'Content-type': 'application/json'
-					},
-					body: JSON.stringify({
-						email: credentials?.email,
-						password: credentials?.password
-					})
-				})
-
-				const user = await response.json()
-
-				if (user && response.ok) {
+				const request = await Authenticate(
+					'/auth/sign_in', 
+					{
+						email: credentials.email,
+						password: credentials.password
+					}
+				)
+				const user = request?.data
+				
+				if (user) {
 					return user
 				}
-
 				return null
 			},
 		})
 	],
 	pages: {
-		signIn: '/login'
+		signIn: '/login',
+		error: '/login/error'
 	},
 	callbacks: {
 		async jwt({ token, user }) {
-			user && (token.user = user)
-			return token
+			//user && (token.user = user)
+			return {...token, ...user};
+			
 		},
-		async session({ session, token }){
-			session = token.user
+		async session({ session, token, user }){
+			session = token
 			return session
 		}
 	}
@@ -49,4 +48,4 @@ const nextAuthOptions = {
 
 const handler = NextAuth(nextAuthOptions)
 
-export { handler as GET, handler as POST, nextAuthOptions }
+export { handler as GET, handler as POST, nextAuthOptions };

@@ -1,11 +1,14 @@
 import { Inter } from 'next/font/google';
+import NextAuthSessionProvider from "../lib/next_auth/sessionProvider";
 import StyledComponentsRegistry from '../lib/styled_componentes/registry';
 import Theme from '../styles/Theme';
 import GlobalStyle from "../styles/globals";
 
-import NextAuthSessionProvider from "../lib/next_auth/sessionProvider";
-
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  weight: ['300', '400', '700'], 
+  subsets: ['latin'],
+  display: 'swap'
+ })
 
 export const metadata = {
   title: 'Next 13',

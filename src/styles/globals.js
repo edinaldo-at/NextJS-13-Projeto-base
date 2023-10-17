@@ -17,15 +17,17 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     -webkit-font-smoothing: antialiased !important;
+    background-color: ${props => props.theme.gray.primary};
+    padding: 8rem;
   }
   
   html {
     /* a cada 1rem será considerado 10px */
-    font: 300 62.5% 'Poppins', sans-serif;
+    font: 500 62.5%;
+    color: ${props => props.theme.gray.tertiary};
   }
   body,input,button, textarea{
-    font: 500 1.6rem 'Inter', sans-serif;
-    
+    font: 500 1.6rem;
   }
   a {
     color: inherit;

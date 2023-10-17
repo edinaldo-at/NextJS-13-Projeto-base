@@ -1,5 +1,28 @@
+import useAxiosAuth from "../../../lib/axios/useAxiosAuth";
 
-export function authenticate() {
+export async function Authenticate(url, body) {
+  const axiosAuth = useAxiosAuth()
 
-  return {user: "Edinaldo", token: "Bearer eyJ0b2tlbiI6IkFpV1BVTGRvTzVQRGZreFFkZ1FVWXciLCJ0eXBlIjoiQmVhcmVyIiwiY2xpZW50IjoiZVFYYTZSN0c0Rkl2Z2JTWXZ2TUFzZyIsImV4cGlyeSI6IjE2OTc2NzY3MTUiLCJ1aWQiOiJhZG1pbkBza3lsYW4uY29tLmJyIn0="}
+  const request = await axiosAuth.post(url,body)
+  .then((res) => {
+    res?.headers?.authorization && (res.data.data.accessToken = res.headers.authorization)
+    
+    return res
+  }).catch((err) => {
+    return err;
+  });
+  return request
 }
+
+export const ValidateToken = async (url) => {
+  const axiosAuth = useAxiosAuth()
+  const request = await axiosAuth.get(url)
+    .then((res) => {
+      res.data.data.accessToken = res.headers.authorization
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+    return request
+};
