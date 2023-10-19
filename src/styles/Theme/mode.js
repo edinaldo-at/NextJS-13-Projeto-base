@@ -35,5 +35,8 @@ export const mode = (mode='Light') => {
     },
     alerts: alerts
   }
+
+  
+
   return mode == "Light" ? LightMode : DarkMode
 }

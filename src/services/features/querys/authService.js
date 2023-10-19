@@ -6,7 +6,7 @@ export async function Authenticate(url, body) {
   const request = await axiosAuth.post(url,body)
   .then((res) => {
     res?.headers?.authorization && (res.data.data.accessToken = res.headers.authorization)
-    
+    console.log(res)
     return res
   }).catch((err) => {
     return err;
